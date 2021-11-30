@@ -14,11 +14,41 @@ app.get('/pokemon', (req, res) => {
     res.status(200).send(allPokemon)
 })
 
+app.post('/pokemon', (req, res) => {
+
+    const { id, namePokemon, types, height, width, sprite } = req.body
+
+    allPokemon.unshift(req.body)
+
+    res.send(allPokemon)
+})
+
 app.get('/pokemon/:id', (req, res) => {
     if(req.params.id <= allPokemon.length){
         const pokemonMatchById = allPokemon.find((pokemonId) => (pokemonId.id) === parseInt(req.params.id))
         res.status(200).send(pokemonMatchById)
     } else (res.status(404).send(`Id ${req.params.id} doesn't exist`))
+})
+
+app.put('/pokemon/:id',(req, res) => {
+    const pokemonMatchById = allPokemon.find((pokemonId) => (pokemonId.id) === parseInt(req.params.id))
+    res.status(200).send(pokemonMatchById)
+    
+    const { name, types, height, weight, sprite } = req.body
+
+    const objPokemon = [
+    pokemonMatchById.name = req.body.name,
+    pokemonMatchById.name = req.body.name,
+    pokemonMatchById.types = req.body.types,
+    pokemonMatchById.height = req.body.height,
+    pokemonMatchById.weight = req.body.sprite,
+    pokemonMatchById.sprite = req.body.sprite,
+    ]
+
+    allPokemon.shift(req.body, ...req.body)
+
+    res.status(200).send(allPokemon)
+
 })
 
 app.get('/search/:name', (req, res) => {
@@ -32,6 +62,8 @@ app.get('/search/:name', (req, res) => {
     } else {
         res.status(404).send('Not found')
     }
+
+
 
   
 })
