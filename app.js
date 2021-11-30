@@ -15,17 +15,26 @@ app.get('/pokemon', (req, res) => {
 })
 
 app.get('/pokemon/:id', (req, res) => {
-    const pokemonMatchById = allPokemon.find((pokemonId) => (pokemonId.id) === parseInt(req.params.id))
-    res.status(200).send(pokemonMatchById)
+    if(req.params.id <= allPokemon.length){
+        const pokemonMatchById = allPokemon.find((pokemonId) => (pokemonId.id) === parseInt(req.params.id))
+        res.status(200).send(pokemonMatchById)
+    } else (res.status(404).send(`Id ${req.params.id} doesn't exist`))
 })
 
 app.get('/search/:name', (req, res) => {
 
-    // const pokemonMatchByName = allPokemon.find((currentPokemon) => (currentPokemon.name) === req.params.name)
-    // res.status(200).send(pokemonMatchByName)
-   
-    let pokemonMatchByTypes = allPokemon.filter((currentPokemon) => currentPokemon.types.includes((currentTypes) => console.log(currentTypes) === req.params.name))
-    res.status(200).send(`Hello dear ${pokemonMatchByTypes}`)
-   
+    if(allPokemon.find((currentPokemon) => currentPokemon.name === req.params.name)){
+        const pokemonMatchByName = allPokemon.find((currentPokemon) => (currentPokemon.name) === req.params.name)
+        res.status(200).send(pokemonMatchByName)
+    } else if(allPokemon.find((currentPokemon) => true == currentPokemon.types.includes(req.params.name))) {
+        let pokemonMatchByTypes = allPokemon.filter((currentPokemon) => true == currentPokemon.types.includes(req.params.name))
+        res.status(200).send(pokemonMatchByTypes)  
+    } else {
+        res.status(404).send('Not found')
+    }
+
+  
 })
+
+
 app.listen(PORT, () => console.log(`Server up and running at port ${PORT}`));
