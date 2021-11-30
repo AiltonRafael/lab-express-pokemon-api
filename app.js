@@ -36,15 +36,6 @@ app.put('/pokemon/:id',(req, res) => {
     
     const { name, types, height, weight, sprite } = req.body
 
-    const objPokemon = [
-    pokemonMatchById.name = req.body.name,
-    pokemonMatchById.name = req.body.name,
-    pokemonMatchById.types = req.body.types,
-    pokemonMatchById.height = req.body.height,
-    pokemonMatchById.weight = req.body.sprite,
-    pokemonMatchById.sprite = req.body.sprite,
-    ]
-
     allPokemon.shift(req.body, ...req.body)
 
     res.status(200).send(allPokemon)
@@ -62,7 +53,6 @@ app.get('/search/:name', (req, res) => {
     } else {
         res.status(404).send('Not found')
     }
-
 
 
   
